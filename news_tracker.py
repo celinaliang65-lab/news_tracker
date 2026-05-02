@@ -253,7 +253,7 @@ def job():
                 day_str = f"🔽 {chg:.2f}"
             else:
                 day_str = "➖ 0.00"
-            report += f"  現價:{p:.2f}  {day_str}\n"
+            report += f"  現價：{p:.2f}  {day_str}\n"
         else:
             report += "  價格取得失敗\n"
 
@@ -261,11 +261,11 @@ def job():
         if month_str and revenue:
             yoy_sign = "+" if yoy >= 0 else ""
             yoy_arrow = "↑" if yoy >= 0 else "↓"
-            report += f"  月營收:{month_str} {revenue:.1f}億  {yoy_arrow} {yoy_sign}{yoy:.1f}%\n"
+            report += f"  月營收：{month_str} {revenue:.1f}億  {yoy_arrow} {yoy_sign}{yoy:.1f}%\n"
 
         quarter, eps = get_eps(sid)
         if quarter and eps:
-            report += f"  EPS：{quarter} {eps:.2f}元\n"
+            report += f"  EPS：{quarter}  {eps:.2f}元\n"
 
         news_list = get_news(name, sid)
         report += THIN_LINE + "\n"
