@@ -305,7 +305,7 @@ def job():
         if month_str and revenue is not None:
             mom_sign = "+" if mom >= 0 else ""
             mom_arrow = "↑" if mom >= 0 else "↓"
-            report += f"  月營收：{month_str} {revenue:.1f}億  {mom_arrow} {mom_sign}{mom:.1f}%MoM\n"
+            report += f"  月營收：{month_str}  {revenue:.1f}億  {mom_arrow} {mom_sign}{mom:.1f}%MoM\n"
 
         quarter, eps = get_eps(sid)
         if quarter and eps:
