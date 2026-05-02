@@ -1,51 +1,31 @@
-import pandas as pd
-from datetime import datetime
+# 確保 day_icon 邏輯正確
+day_icon = "🔺" if chg > 0 else ("🔽" if chg < 0 else "➖")
 
-def format_stock_summary(stock_list):
-    """
-    依照使用者指定的格式產出觀察清單摘要
-    """
-    now = datetime.now().strftime("%Y/%m/%d %H:%M")
-    
-    # 1. 標題與日期
-    report = f"📰 觀察清單新聞摘要\n{now}\n"
-    report += "___________________________________\n\n"
-    
-    for stock in stock_list:
-        # 2. 股票名稱與代號
-        report += f"**{stock['code']} {stock['name']}**\n"
-        
-        # 3. 縮行數據區 (使用全型空格達成縮行效果)
-        report += f"　**現價：{stock['price']}**\n"
-        report += f"　**月營收：{stock['revenue']}**\n"
-        report += f"　**EPS：{stock['eps']}**\n"
-        
-        # 4. 數據與新聞間的分隔線
-        report += "___________________________________\n"
-        
-        # 5. 移除「新聞」二字的列表
-        for news in stock['news_list']:
-            report += f"* {news}\n"
-        
-        # 6. 每隻股票後的空行 (關鍵修正)
-        report += "\n"
-    
-    return report
+# 1. 股票抬頭：靠左對齊，完全不加星號[span_1](start_span)[span_1](end_span)
+report = f"{sid} {name}\n"
 
-# 模擬資料結構 (實際執行時可連動您的 Excel 或資料庫)
-stocks = [
-    {
-        "code": "6196", "name": "帆宣", 
-        "price": "155.50 ▲ +2.50", "revenue": "4月 12.5億 ↑ +15.3% (YoY)", "eps": "Q1 8.07元",
-        "news_list": ["帆宣在手訂單維持高檔，受惠半導體龍頭海外擴廠需求。", "智慧工廠自動化系統切入美系供應鏈，營運動能無虞。"]
-    },
-    {
-        "code": "2330", "name": "台積電", 
-        "price": "1000.00 ▲ +15.00", "revenue": "4月 2,360億 ↑ +20.9% (YoY)", "eps": "Q1 8.70元",
-        "news_list": ["AI 晶片代工訂單持續強勁，美系大行調升目標價。", "2 奈米技術進度穩定，預計明年量產貢獻營收。"]
-    }
-]
+# 2. 數據行：開頭縮排「一個」全形空格[span_2](start_span)[span_2](end_span)
+# 這裡我只放了一個全形空格 　
+report += f"　現價：{p:.2f} {day_icon} +{abs(chg):.2f}\n"
+report += f"　月營收：{fin['month']}月 {fin['rev_val']} ↑ {fin['rev_yoy']} (YoY)\n"
+report += f"　EPS：{fin['eps_q']} {fin['eps_val']}元\n"
 
-if __name__ == "__main__":
-    final_output = format_stock_summary(stocks)
-    print(final_output)
+# 3. 分隔線[span_3](start_span)[span_3](end_span)
+report += "───────────────────\n"
+
+# 4. 新聞列表：開頭縮排「一個」全形空格，符號使用 •[span_4](start_span)[span_4](end_span)
+news_list = get_news(name, sid)
+if news_list:
+    for news in news_list:
+        # 同樣只縮排一個全形空格
+        report += f"　• {news}\n"
+else:
+    report += "　• 暫無相關新聞\n"
+
+# 5. 推播並記錄歷史 (避免重複發送)
+try:
+    line_bot_api = LineBotApi(LINE_ACCESS_TOKEN)
+    line_bot_api.push_message(LINE_USER_ID, TextSendMessage(text=report))
+    history[sid] = {"month": fin["month"], "eps": fin["eps_q"]}
+except Exception as e:
+    print(f"推播失敗: {e}")
