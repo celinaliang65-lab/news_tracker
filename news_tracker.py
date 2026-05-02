@@ -235,7 +235,6 @@ def job():
 
     report = f"📰 觀察清單新聞摘要\n      {now_tw}\n"
     report += "━━━━━━━━━━━━━\n"
-    report += "【觀察清單】\n"
 
     for _, row in df_watch.iterrows():
         sid = str(row["代號"]).strip()
@@ -262,7 +261,7 @@ def job():
         if month_str and revenue:
             yoy_sign = "+" if yoy >= 0 else ""
             yoy_arrow = "↑" if yoy >= 0 else "↓"
-            report += f"  月營收：{month_str} {revenue:.1f}億  {yoy_arrow} {yoy_sign}{yoy:.1f}%\n"
+            report += f"  月營收:{month_str} {revenue:.1f}億  {yoy_arrow} {yoy_sign}{yoy:.1f}%\n"
 
         quarter, eps = get_eps(sid)
         if quarter and eps:
