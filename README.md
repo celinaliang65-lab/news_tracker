@@ -1,6 +1,6 @@
 # news_tracker.py
 ## 台股觀察清單新聞摘要推播系統
-### 說明文件 v1.2 ｜ 2026-05-16
+### 說明文件 v1.3 ｜ 2026-05-16
 
 ---
 
@@ -36,6 +36,7 @@
 | 變數名稱 | 說明 | 必填 |
 |----------|------|------|
 | LINE_ACCESS_TOKEN | LINE Channel Access Token | ✅ |
+| LINE_USER_ID | LINE 推播目標用戶 ID | ✅ |
 | SINOPAC_API_KEY | 永豐金 Shioaji API Key | 選用 |
 | SINOPAC_SECRET_KEY | 永豐金 Shioaji Secret Key | 選用 |
 | FINMIND_TOKEN | FinMind API Token（提升速率限制）| 選用 |
@@ -106,6 +107,7 @@ jobs:
       - name: Run news script
         env:
           LINE_ACCESS_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
+          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
           SINOPAC_API_KEY: ${{ secrets.SINOPAC_API_KEY }}
           SINOPAC_SECRET_KEY: ${{ secrets.SINOPAC_SECRET_KEY }}
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
@@ -201,6 +203,7 @@ jobs:
 |------|------|----------|
 | 2026-05-03 | v1.1 | 修正月營收月份錯誤、MoM 改為月增率、EPS 季度格式加年份 |
 | 2026-05-16 | v1.2 | 改從 Google Sheets 讀取觀察清單（取代本地 Excel）、加入 GOOGLE_CREDENTIALS 設定說明 |
+| 2026-05-16 | v1.3 | LINE_USER_ID 改從環境變數讀取（移除硬碼），支援 repo 公開 |
 
 ---
 
