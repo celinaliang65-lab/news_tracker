@@ -25,6 +25,7 @@ jobs:
       - name: Run news script
         env:
           LINE_ACCESS_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
+          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
           SINOPAC_API_KEY: ${{ secrets.SINOPAC_API_KEY }}
           SINOPAC_SECRET_KEY: ${{ secrets.SINOPAC_SECRET_KEY }}
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
