@@ -20,7 +20,7 @@ SINOPAC_API_KEY = os.environ.get('SINOPAC_API_KEY', '').strip()
 SINOPAC_SECRET_KEY = os.environ.get('SINOPAC_SECRET_KEY', '').strip()
 FINMIND_TOKEN = os.environ.get('FINMIND_TOKEN', '').strip()
 GOOGLE_CREDENTIALS = os.environ.get('GOOGLE_CREDENTIALS', '').strip()
-SPREADSHEET_ID = "1LR7yZlngjwlH-RMh3xLhi-vVQdi5rDdLdxMy4lvtwLk"
+SPREADSHEET_ID = os.environ.get('SPREADSHEET_ID', '').strip()
 
 EXCLUDE_WORDS = ["爆料", "同學會", "達人", "無腦", "學堂", "康和", "券商分點", "存股"]
 THIN_LINE = "─────────────"
